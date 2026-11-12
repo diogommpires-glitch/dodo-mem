@@ -1,6 +1,6 @@
 # Dodo Mem
 
-Private source-only snapshot of a local Markdown memory service with bounded retrieval, evidence provenance, review gates and agent handoffs.
+Source-only snapshot of a local Markdown memory service with bounded retrieval, evidence provenance, review gates and agent handoffs.
 
 This repository contains the Python package, dependency locks and four test modules that construct synthetic fixtures in temporary directories. It contains no memory vault, personal profile, accepted notes, source documents, databases, backups, logs, runtime state, credentials, live configuration or memory-derived documentation.
 
@@ -19,4 +19,4 @@ uv run --locked pytest tests
 
 The installed service has not been changed. This repository is an unconfigured code snapshot and does not reproduce its deployment. Client profiles, launch scripts, owner configuration and operational instructions must be created separately from synthetic templates before use. The personal notification integration is omitted, including its MCP tool, and the offline adapter requires an explicit runtime path. Its Windows and WSL deployment has not been qualified here.
 
-No licence grant has been added to this private snapshot. Third-party dependencies retain their own terms.
+Original project code is source-available under the PolyForm Noncommercial License 1.0.0. See `LICENSE` and `LICENSING.md`. Commercial use is not granted by this project licence; third-party dependencies retain their own terms. Earlier grants for older versions are unaffected.
