@@ -1,0 +1,27 @@
+{
+  "xml": "<?xml version=\"1.0\" encoding=\"UTF-16\"?>\r\n<Task version=\"1.4\" xmlns=\"http://schemas.microsoft.com/windows/2004/02/mit/task\">\r\n  <RegistrationInfo>\r\n    <Description>Dodo Mem owned hidden neural service. Registration aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</Description>\r\n    <URI>\\Dodo Mem Neural</URI>\r\n  </RegistrationInfo>\r\n  <Principals>\r\n    <Principal id=\"DodoMem\">\r\n      <UserId>S-1-5-21-1000000001-1000000002-1000000003-1001</UserId>\r\n      <LogonType>InteractiveToken</LogonType>\r\n    </Principal>\r\n  </Principals>\r\n  <Settings>\r\n    <AllowHardTerminate>false</AllowHardTerminate>\r\n    <DisallowStartIfOnBatteries>false</DisallowStartIfOnBatteries>\r\n    <StopIfGoingOnBatteries>false</StopIfGoingOnBatteries>\r\n    <ExecutionTimeLimit>PT0S</ExecutionTimeLimit>\r\n    <Hidden>true</Hidden>\r\n    <MultipleInstancesPolicy>IgnoreNew</MultipleInstancesPolicy>\r\n    <StartWhenAvailable>true</StartWhenAvailable>\r\n    <IdleSettings>\r\n      <StopOnIdleEnd>true</StopOnIdleEnd>\r\n      <RestartOnIdle>false</RestartOnIdle>\r\n    </IdleSettings>\r\n    <UseUnifiedSchedulingEngine>true</UseUnifiedSchedulingEngine>\r\n  </Settings>\r\n  <Triggers />\r\n  <Actions Context=\"DodoMem\">\r\n    <Exec>\r\n      <Command>C:/synthetic/pythonw.exe</Command>\r\n      <Arguments>-m dodo_mem_neural.cli</Arguments>\r\n      <WorkingDirectory>C:/synthetic/repository</WorkingDirectory>\r\n    </Exec>\r\n  </Actions>\r\n</Task>",
+  "effective": {
+    "user": "S-1-5-21-1000000001-1000000002-1000000003-1001",
+    "logon_type": 3,
+    "run_level": 0,
+    "actions": 1,
+    "triggers": 0,
+    "action_type": 0,
+    "command": "C:/synthetic/pythonw.exe",
+    "arguments": "-m dodo_mem_neural.cli",
+    "cwd": "C:/synthetic/repository",
+    "MultipleInstancesPolicy": 2,
+    "DisallowStartIfOnBatteries": false,
+    "StopIfGoingOnBatteries": false,
+    "AllowHardTerminate": false,
+    "StartWhenAvailable": true,
+    "RunOnlyIfNetworkAvailable": false,
+    "AllowStartOnDemand": true,
+    "Enabled": true,
+    "Hidden": true,
+    "RunOnlyIfIdle": false,
+    "WakeToRun": false,
+    "ExecutionTimeLimit": "PT0S",
+    "Priority": 7
+  }
+}

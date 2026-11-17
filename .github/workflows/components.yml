@@ -1,0 +1,49 @@
+name: Desktop and neural source checks
+
+on: [push, pull_request, workflow_dispatch]
+
+permissions:
+  contents: read
+
+jobs:
+  windows-components:
+    runs-on: windows-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2
+        with:
+          version: '0.13.6'
+          python-version: '3.13.18'
+          enable-cache: false
+      - run: uv python install 3.13.18
+      - run: uv sync --project desktop --locked --managed-python
+      - run: uv sync --project neural --locked --managed-python
+      - name: Select disposable state and synthetic source roots
+        shell: pwsh
+        run: |
+          $testRoot = Join-Path $env:RUNNER_TEMP 'dodo-component-tests'
+          New-Item -ItemType Directory -Force -Path $testRoot | Out-Null
+          "DODO_MEM_RUNTIME_ROOT=$testRoot/runtime" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+          "DODO_MEM_LIBRARY_ROOTS=$(ConvertTo-Json -Compress -InputObject @($testRoot))" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+          'DODO_MEM_CHAT_ROOTS=[]' | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+          'DODO_MEM_CLINE_DATABASES=[]' | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+          'QT_QPA_PLATFORM=offscreen' | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+      - name: Desktop style and synthetic regressions
+        working-directory: desktop
+        run: |
+          uv run --locked ruff check src tests tools
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          uv run --locked ruff format --check src tests tools
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          uv run --locked python -m pytest tests -q --basetemp "$env:RUNNER_TEMP/dodo-component-tests/desktop"
+      - name: Neural style and synthetic regressions
+        working-directory: neural
+        run: |
+          uv run --locked ruff check src tests scripts
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          uv run --locked ruff format --check src tests scripts
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          uv run --locked python -m pytest tests -q --basetemp "$env:RUNNER_TEMP/dodo-component-tests/neural"

@@ -1,0 +1,14 @@
+title = "Dodo Mem source checks"
+
+[extend]
+useDefault = true
+
+[[rules]]
+id = "generic-api-key"
+
+[[rules.allowlists]]
+description = "Fixed token-count coverage status and its contract regression, never a credential."
+condition = "AND"
+paths = ['''^neural/(src/dodo_mem_neural/broker\.py|tests/test_broker\.py)$''']
+regexTarget = "secret"
+regexes = ['''^utf8-byte-upper-bound$''']

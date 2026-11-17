@@ -42,4 +42,5 @@ jobs:
           tar -xzf "$RUNNER_TEMP/gitleaks.tar.gz" -C "$RUNNER_TEMP" gitleaks
           mkdir "$RUNNER_TEMP/checked-tree"
           git archive HEAD | tar -xf - -C "$RUNNER_TEMP/checked-tree"
-          "$RUNNER_TEMP/gitleaks" dir "$RUNNER_TEMP/checked-tree" --redact --no-banner
+          cd "$RUNNER_TEMP/checked-tree"
+          "$RUNNER_TEMP/gitleaks" dir . --config "$GITHUB_WORKSPACE/.gitleaks.toml" --redact --no-banner

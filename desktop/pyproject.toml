@@ -1,0 +1,31 @@
+[project]
+name = "dodo-memory-desktop"
+version = "0.1.0"
+license = "PolyForm-Noncommercial-1.0.0"
+license-files = ["LICENSE"]
+description = "A native Windows workspace for Dodo Mem"
+requires-python = ">=3.13,<3.14"
+dependencies = [
+    "httpx>=0.28,<1",
+    "pypdf==6.21.4",
+    "PySide6-Essentials>=6.8,<7",
+    "wasmtime==50.0.1",
+]
+
+[project.gui-scripts]
+dodo-memory-desktop = "dodo_memory_desktop.app:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = ["pytest>=8,<11", "ruff>=0.14"]
+visuals = ["pygfx==0.17.0", "rendercanvas==2.7.1", "wgpu==0.32.0"]
+
+[tool.ruff]
+target-version = "py313"
+line-length = 100
+
+[tool.ruff.lint]
+extend-select = ["I", "SIM", "UP", "FURB", "PERF", "C4", "RET"]
